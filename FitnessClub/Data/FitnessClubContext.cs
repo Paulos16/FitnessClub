@@ -9,6 +9,6 @@ namespace FitnessClub.Data
         public DbSet<MembershipPlan> MembershipPlans { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=localhost;Database=Wombat.gym;Username=dummy;Password=dumbby");
+            => optionsBuilder.UseNpgsql("Host=localhost;Database=Wombat;Username=dummy;Password=dumbby");
     }
 }
