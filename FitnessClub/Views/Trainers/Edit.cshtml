@@ -1,4 +1,4 @@
-@model FitnessClub.Models.Customer
+@model FitnessClub.Models.Trainer
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,13 +6,13 @@
 
 <h1>Edit</h1>
 
-<h4>Customer</h4>
+<h4>Trainer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdCustomer" />
+            <input type="hidden" asp-for="IdTrainer" />
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -29,9 +29,14 @@
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdMembershipPlan" class="control-label"></label>
-                <select asp-for="IdMembershipPlan" class="form-control" asp-items="ViewBag.IdMembershipPlan"></select>
-                <span asp-validation-for="IdMembershipPlan" class="text-danger"></span>
+                <label asp-for="Qualifications" class="control-label"></label>
+                <input asp-for="Qualifications" class="form-control" />
+                <span asp-validation-for="Qualifications" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Achievements" class="control-label"></label>
+                <input asp-for="Achievements" class="form-control" />
+                <span asp-validation-for="Achievements" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="IdGym" class="control-label"></label>

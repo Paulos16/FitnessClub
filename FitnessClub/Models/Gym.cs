@@ -24,5 +24,6 @@ namespace FitnessClub.Models
         public string Contact { get; set; }
         
         public List<Customer> Customers { get; set; }
+        public List<Trainer> Trainers { get; set; }
     }
 }

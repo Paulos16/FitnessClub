@@ -1,4 +1,4 @@
-@model FitnessClub.Models.Customer
+@model FitnessClub.Models.Gym
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,43 +8,43 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Customer</h4>
+    <h4>Gym</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.City)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.City)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfBirth)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateOfBirth)
+            @Html.DisplayFor(model => model.Address)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MembershipPlan)
+            @Html.DisplayNameFor(model => model.WorkingHours)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MembershipPlan.Description)
+            @Html.DisplayFor(model => model.WorkingHours)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gym)
+            @Html.DisplayNameFor(model => model.Contact)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gym.Address)
+            @Html.DisplayFor(model => model.Contact)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="IdCustomer" />
+        <input type="hidden" asp-for="IdGym" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

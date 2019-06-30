@@ -10,23 +10,23 @@ using FitnessClub.Models;
 
 namespace FitnessClub.Controllers
 {
-    public class CustomersController : Controller
+    public class TrainersController : Controller
     {
         private readonly FitnessClubContext _context;
 
-        public CustomersController(FitnessClubContext context)
+        public TrainersController(FitnessClubContext context)
         {
             _context = context;
         }
 
-        // GET: Customers
+        // GET: Trainers
         public async Task<IActionResult> Index()
         {
-            var fitnessClubContext = _context.Customers.Include(c => c.Gym).Include(c => c.MembershipPlan);
+            var fitnessClubContext = _context.Trainers.Include(t => t.Gym);
             return View(await fitnessClubContext.ToListAsync());
         }
 
-        // GET: Customers/Details/5
+        // GET: Trainers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,45 +34,42 @@ namespace FitnessClub.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .Include(c => c.Gym)
-                .Include(c => c.MembershipPlan)
-                .FirstOrDefaultAsync(m => m.IdCustomer == id);
-            if (customer == null)
+            var trainer = await _context.Trainers
+                .Include(t => t.Gym)
+                .FirstOrDefaultAsync(m => m.IdTrainer == id);
+            if (trainer == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(trainer);
         }
 
-        // GET: Customers/Create
+        // GET: Trainers/Create
         public IActionResult Create()
         {
             ViewData["IdGym"] = new SelectList(_context.Gyms, "IdGym", "Address");
-            ViewData["IdMembershipPlan"] = new SelectList(_context.MembershipPlans, "IdMembershipPlan", "Description");
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: Trainers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCustomer,FirstName,LastName,DateOfBirth,IdMembershipPlan,IdGym")] Customer customer)
+        public async Task<IActionResult> Create([Bind("IdTrainer,FirstName,LastName,DateOfBirth,Qualifications,Achievements,IdGym")] Trainer trainer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                _context.Add(trainer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdGym"] = new SelectList(_context.Gyms, "IdGym", "Address", customer.IdGym);
-            ViewData["IdMembershipPlan"] = new SelectList(_context.MembershipPlans, "IdMembershipPlan", "Description", customer.IdMembershipPlan);
-            return View(customer);
+            ViewData["IdGym"] = new SelectList(_context.Gyms, "IdGym", "Address", trainer.IdGym);
+            return View(trainer);
         }
 
-        // GET: Customers/Edit/5
+        // GET: Trainers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,24 +77,23 @@ namespace FitnessClub.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var trainer = await _context.Trainers.FindAsync(id);
+            if (trainer == null)
             {
                 return NotFound();
             }
-            ViewData["IdGym"] = new SelectList(_context.Gyms, "IdGym", "Address", customer.IdGym);
-            ViewData["IdMembershipPlan"] = new SelectList(_context.MembershipPlans, "IdMembershipPlan", "Description", customer.IdMembershipPlan);
-            return View(customer);
+            ViewData["IdGym"] = new SelectList(_context.Gyms, "IdGym", "Address", trainer.IdGym);
+            return View(trainer);
         }
 
-        // POST: Customers/Edit/5
+        // POST: Trainers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCustomer,FirstName,LastName,DateOfBirth,IdMembershipPlan,IdGym")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("IdTrainer,FirstName,LastName,DateOfBirth,Qualifications,Achievements,IdGym")] Trainer trainer)
         {
-            if (id != customer.IdCustomer)
+            if (id != trainer.IdTrainer)
             {
                 return NotFound();
             }
@@ -106,12 +102,12 @@ namespace FitnessClub.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
+                    _context.Update(trainer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.IdCustomer))
+                    if (!TrainerExists(trainer.IdTrainer))
                     {
                         return NotFound();
                     }
@@ -122,12 +118,11 @@ namespace FitnessClub.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdGym"] = new SelectList(_context.Gyms, "IdGym", "Address", customer.IdGym);
-            ViewData["IdMembershipPlan"] = new SelectList(_context.MembershipPlans, "IdMembershipPlan", "Description", customer.IdMembershipPlan);
-            return View(customer);
+            ViewData["IdGym"] = new SelectList(_context.Gyms, "IdGym", "Address", trainer.IdGym);
+            return View(trainer);
         }
 
-        // GET: Customers/Delete/5
+        // GET: Trainers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,32 +130,31 @@ namespace FitnessClub.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .Include(c => c.Gym)
-                .Include(c => c.MembershipPlan)
-                .FirstOrDefaultAsync(m => m.IdCustomer == id);
-            if (customer == null)
+            var trainer = await _context.Trainers
+                .Include(t => t.Gym)
+                .FirstOrDefaultAsync(m => m.IdTrainer == id);
+            if (trainer == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(trainer);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Trainers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customer);
+            var trainer = await _context.Trainers.FindAsync(id);
+            _context.Trainers.Remove(trainer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool TrainerExists(int id)
         {
-            return _context.Customers.Any(e => e.IdCustomer == id);
+            return _context.Trainers.Any(e => e.IdTrainer == id);
         }
     }
 }
