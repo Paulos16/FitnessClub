@@ -20,5 +20,8 @@ namespace FitnessClub.Models
         
         public int IdMembershipPlan { get; set; }
         public MembershipPlan MembershipPlan { get; set; }
+        
+        public int IdGym { get; set; }
+        public Gym Gym { get; set; }
     }
 }
